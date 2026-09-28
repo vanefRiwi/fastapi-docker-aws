@@ -1,0 +1,17 @@
+# EC2 #2 (subnet privada) — FastAPI
+# Se ejecuta desde la raíz del proyecto:
+#   docker compose -f deploy/api/docker-compose.yml --env-file deploy/api/.env up -d --build
+services:
+  api:
+    build: ../..
+    container_name: fastapi_app
+    restart: unless-stopped
+    env_file: .env          # DATABASE_URL, S3_BUCKET_NAME, AWS_REGION
+    ports:
+      - "8000:8000"         # El Security Group solo deja entrar a la EC2 del proxy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 20s

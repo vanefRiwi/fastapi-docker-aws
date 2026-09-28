@@ -1,0 +1,19 @@
+# EC2 #3 (subnet privada) — PostgreSQL
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: postgres_db
+    restart: unless-stopped
+    env_file: .env          # POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB
+    ports:
+      - "5432:5432"         # El Security Group solo deja entrar a la EC2 de FastAPI
+    volumes:
+      - postgres_data:/var/lib/postgresql/data   # Docker Volume = persistencia
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
