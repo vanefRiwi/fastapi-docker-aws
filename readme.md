@@ -1,4 +1,4 @@
-bash´´´
+´´´bash
 mkdir -p ~/npm && cd ~/npm
 
 cat > docker-compose.yml <<'EOF'
