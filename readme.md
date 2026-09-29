@@ -1,4 +1,8 @@
-´´´bash
+# Despliegue de Nginx Proxy Manager
+
+Ejecuta el siguiente bloque de comandos en tu terminal de Ubuntu para crear el directorio, generar el archivo de configuración e iniciar el contenedor:
+
+```bash
 mkdir -p ~/npm && cd ~/npm
 
 cat > docker-compose.yml <<'EOF'
@@ -22,4 +26,5 @@ EOF
 
 docker compose up -d
 docker compose ps
-´´´
+```
+
